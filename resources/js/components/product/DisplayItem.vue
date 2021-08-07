@@ -36,7 +36,7 @@
                       <td class="text-capitalize">{{item.name}}</td>
                       <td>{{item.amount}}</td>
                       <td>{{item.expired_date}}</td>
-                      <td>{{item.status}}</td>
+                      <td>{{status(item.status)}}</td>
                       <td>{{dateFormat(item.updated_at)}}</td>
                       <td v-if="$gate.isAdmin()">
 
@@ -236,6 +236,15 @@
                 let mo = new Intl.DateTimeFormat('id', { month: 'long' }).format(date);
                 let da = new Intl.DateTimeFormat('id', { day: '2-digit' }).format(date);
                 return `${da} ${mo} ${ye}`;
+            },
+
+            status(statusId) {
+                switch(statusId) {
+                    case 1:
+                        return 'Barang Tersedia'
+                    case 2:
+                        return 'Stok Habis'
+                }
             }
 
         },

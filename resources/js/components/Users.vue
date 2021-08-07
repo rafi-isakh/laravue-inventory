@@ -24,7 +24,7 @@
                      <tr v-for="user in users.data" :key="user.id">
                       <td class="text-capitalize">{{user.name}}</td>
                       <td>{{user.username}}</td>
-                      <td>{{user.role}}</td>
+                      <td>{{role(user.role)}}</td>
 
                       <td>
 
@@ -229,6 +229,17 @@
                       title: 'Some error occured! Please try again'
                   });
               })
+          },
+
+          role(roleId) {
+              switch (roleId) {
+                case 1:
+                    return 'Admin';
+                case 2:
+                    return 'Owner';
+                default:
+                    return 'Owner';
+              }
           }
 
         },

@@ -9,7 +9,7 @@
               <div class="card-header">
                 <h3 class="card-title">Transaksi</h3>
 
-                <div class="card-tools">
+                <div class="card-tools" v-if="$gate.isAdmin()">
                   
                   <button type="button" class="btn btn-sm btn-primary" @click="newModal">
                       <i class="fa fa-plus-square"></i>

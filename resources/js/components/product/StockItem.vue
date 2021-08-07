@@ -40,7 +40,7 @@
                       <td>{{stock.item_out}}</td>
                       <td>{{stock.balance}}</td>
                       <td>{{dateFormat(stock.expired_date)}}</td>
-                      <td>{{stock.status}}</td>
+                      <td>{{status(stock.status)}}</td>
                       <td>{{dateFormat(stock.updated_at)}}</td>
                       <td v-if="$gate.isAdmin()">
 
@@ -244,12 +244,22 @@
                     });
                 })
             },
+
             dateFormat(dateInput) {
                 const date = new Date(dateInput);
                 let ye = new Intl.DateTimeFormat('id', { year: 'numeric' }).format(date);
                 let mo = new Intl.DateTimeFormat('id', { month: 'long' }).format(date);
                 let da = new Intl.DateTimeFormat('id', { day: '2-digit' }).format(date);
                 return `${da} ${mo} ${ye}`;
+            },
+
+            status(statusId) {
+                switch(statusId) {
+                    case 1:
+                        return 'Tersedia'
+                    case 2:
+                        return 'Segera Melakukan Pengadaan'
+                }
             }
 
         },

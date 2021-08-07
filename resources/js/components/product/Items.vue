@@ -33,7 +33,7 @@
                      <tr v-for="product in items.data" :key="product.id">
 
                       <td>{{product.name}}</td>
-                      <td>{{product.type}}</td>
+                      <td>{{type(product.type)}}</td>
                       <td>{{product.price}}</td>
                       <td>{{product.reorder_point}}</td>
                       <!-- <td><img v-bind:src="'/' + product.photo" width="100" alt="product"></td> -->
@@ -242,6 +242,18 @@
                   })
           },
 
+          type(typeId) {
+            switch(typeId) {
+              case 1: 
+                return 'Makanan Basah'
+              case 2:
+                return 'Makanan Kering'
+              case 3:
+                return 'Aksesoris'
+              default:
+                return ''
+            }
+          }
         },
         mounted() {
             
