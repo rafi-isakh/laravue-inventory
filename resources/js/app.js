@@ -17,6 +17,9 @@ Vue.prototype.$gate = new Gate(window.user);
 
 import Swal from 'sweetalert2';
 
+import VueDatePicker from '@mathieustan/vue-datepicker';
+import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
+Vue.use(VueDatePicker);
 
 const Toast = Swal.mixin({
     toast: true,
@@ -49,6 +52,7 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import routes from './routes';
+import Vue from 'vue';
 
 const router = new VueRouter({
     mode: 'history',

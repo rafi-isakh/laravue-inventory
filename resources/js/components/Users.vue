@@ -7,46 +7,31 @@
         
             <div class="card" v-if="$gate.isAdmin()">
               <div class="card-header">
-                <h3 class="card-title">User List</h3>
-
-                <div class="card-tools">
-                  
-                  <button type="button" class="btn btn-sm btn-primary" @click="newModal">
-                      <i class="fa fa-plus-square"></i>
-                      Add New
-                  </button>
-                </div>
+                <h3 class="card-title">Data User</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Type</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Email Verified?</th>
-                      <th>Created</th>
+                      <th>Username</th>
+                      <th>Role</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                      <tr v-for="user in users.data" :key="user.id">
-
-                      <td>{{user.id}}</td>
-                      <td class="text-capitalize">{{user.type}}</td>
                       <td class="text-capitalize">{{user.name}}</td>
-                      <td>{{user.email}}</td>
-                      <td :inner-html.prop="user.email_verified_at | yesno"></td>
-                      <td>{{user.created_at}}</td>
+                      <td>{{user.username}}</td>
+                      <td>{{user.role}}</td>
 
                       <td>
 
                         <a href="#" @click="editModal(user)">
                             <i class="fa fa-edit blue"></i>
                         </a>
-                        /
+                        
                         <a href="#" @click="deleteUser(user.id)">
                             <i class="fa fa-trash red"></i>
                         </a>
@@ -92,10 +77,10 @@
                             <has-error :form="form" field="name"></has-error>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input v-model="form.email" type="text" name="email"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                            <has-error :form="form" field="email"></has-error>
+                            <label>Username</label>
+                            <input v-model="form.username" type="text" name="username"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
+                            <has-error :form="form" field="username"></has-error>
                         </div>
                     
                         <div class="form-group">
@@ -107,12 +92,12 @@
                     
                         <div class="form-group">
                             <label>User Role</label>
-                            <select name="type" v-model="form.type" id="type" class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
+                            <select name="role" v-model="form.role" id="role" class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
                                 <option value="">Select User Role</option>
-                                <option value="admin">Admin</option>
-                                <option value="user">Standard User</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Standard User</option>
                             </select>
-                            <has-error :form="form" field="type"></has-error>
+                            <has-error :form="form" field="role"></has-error>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -136,11 +121,10 @@
                 users : {},
                 form: new Form({
                     id : '',
-                    type : '',
+                    role : '',
                     name: '',
-                    email: '',
+                    username: '',
                     password: '',
-                    email_verified_at: '',
                 })
             }
         },
@@ -176,6 +160,7 @@
 
             },
             editModal(user){
+                console.log('User: '+user.id);
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');

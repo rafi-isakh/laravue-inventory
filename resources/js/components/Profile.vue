@@ -20,7 +20,7 @@
                                 </div>
                                 <!-- Setting Tab -->
                                 <div class="tab-pane active show" id="settings">
-                                    <form @click.prevent="updateInfo" class="form-horizontal">
+                                    <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="inputName" class="col-sm-2 control-label">Name</label>
 
@@ -30,17 +30,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                            <label for="inputEmail" class="col-sm-2 control-label">Username</label>
 
                                             <div class="col-sm-12">
-                                                <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email"  :class="{ 'is-invalid': form.errors.has('email') }">
-                                                <has-error :form="form" field="email"></has-error>
+                                                <input type="" v-model="form.username" class="form-control" id="inputUsername" placeholder="Username"  :class="{ 'is-invalid': form.errors.has('username') }">
+                                                <has-error :form="form" field="username"></has-error>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success">Update Profile</button>
-                                                <div class="float-right d-sm-inline text-muted">Member since: <span>{{form.created_at|myDate}}</span></div>
+                                                <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update Profile</button>
                                             </div>
                                         </div>
                                     </form>
@@ -121,9 +120,9 @@
                  form: new Form({
                     id:'',
                     name : '',
-                    email: '',
+                    username: '',
                     password: '',
-                    created_at: ''
+                    modified_at: '',
                 })
             }
         },

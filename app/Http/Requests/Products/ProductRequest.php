@@ -37,12 +37,10 @@ class ProductRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'category_id' => 'required|integer|exists:categories,id',
-            'name' => 'required|string|max:191',
-            'description' => 'required|string|max:1000',
+            'type' => 'required|integer',
+            'name' => 'required|string|max:100',
+            'reorderPoint' => 'required|integer',
             'price' => 'required|numeric',
-            // 'tags' => 'required|array',
-            // 'photo' => 'sometimes|files',
         ];
     }
 
@@ -54,12 +52,10 @@ class ProductRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'category_id' => 'required|integer|exists:categories,id',
-            'name' => 'required|string|max:191',
-            'description' => 'required|string|max:1000',
+            'type' => 'required|integer',
+            'name' => 'required|string|max:100',
+            'reorderPoint' => 'required|integer',
             'price' => 'required|numeric',
-            // 'tags' => 'required|array',
-            // 'photo' => 'sometimes|files',
         ];
     }
 }

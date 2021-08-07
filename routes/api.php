@@ -34,10 +34,15 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
     Route::get('category/list', 'CategoryController@list');
     Route::post('product/upload', 'ProductController@upload');
 
+    Route::get('/transactions/{id}/details', 'TransactionController@detail');
+    Route::get('/orders/{id}/details', 'OrderController@orderDetail');
+
     Route::apiResources([
         'user' => 'UserController',
-        'product' => 'ProductController',
-        'category' => 'CategoryController',
-        'tag' => 'TagController',
+        'items' => 'ProductController',
+        'stockItems' => 'StockItemController',
+        'displayItems' => 'DisplayItemController',
+        'transactions' => 'TransactionController',
+        'orders' => 'OrderController',
     ]);
 });

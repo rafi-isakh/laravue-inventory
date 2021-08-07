@@ -31,9 +31,7 @@ class UserController extends BaseController
             return $this->unauthorizedResponse();
         }
         // $this->authorize('isAdmin');
-
         $users = User::latest()->paginate(10);
-
         return $this->sendResponse($users, 'Users list');
     }
 
