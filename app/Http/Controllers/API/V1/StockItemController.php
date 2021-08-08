@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ItemService;
 use App\Models\StockItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,15 +12,18 @@ class StockItemController extends BaseController
 {
     protected $stockItem = '';
 
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(StockItem $stockItem)
+    public function __construct(StockItem $stockItem, ItemService $service)
     {
         $this->middleware('auth:api');
         $this->stockItem = $stockItem;
+        $this->service = $service;
     }
 
 
@@ -31,10 +35,6 @@ class StockItemController extends BaseController
     public function index()
     {
         $stockItems = $this->stockItem->latest()->paginate(10);
-        // foreach($stockItems as $stockItem) {
-        //     $stockItem['name'] = $stockItem->item->name;
-        //     $stockItem['balance'] = $stockItem->item_in - $stockItem->item_out;
-        // }
 
         return $this->sendResponse($stockItems, 'Stock Item list');
     }
@@ -86,6 +86,8 @@ class StockItemController extends BaseController
             'status' => $request->get('status'),
             'expired_date' => $expired,
         ]);
+        
+        $this->service->checkExpiredDate($updatedItem);
 
         return $this->sendResponse($updatedItem, 'StockItem has been updated');
     }

@@ -50,21 +50,6 @@ class ProductController extends BaseController
             'reorder_point' => $request->get('reorderPoint'),
         ]);
 
-        // update pivot table
-        // $tag_ids = [];
-        // foreach ($request->get('tags') as $tag) {
-        //     $existingtag = Tag::whereName($tag['text'])->first();
-        //     if ($existingtag) {
-        //         $tag_ids[] = $existingtag->id;
-        //     } else {
-        //         $newtag = Tag::create([
-        //             'name' => $tag['text']
-        //         ]);
-        //         $tag_ids[] = $newtag->id;
-        //     }
-        // }
-        // $product->tags()->sync($tag_ids);
-
         return $this->sendResponse($item, 'Item Created Successfully');
     }
 
@@ -98,21 +83,6 @@ class ProductController extends BaseController
             'price' => $request->get('price'),
             'reorder_point' => $request->get('reorderPoint'),
         ]);
-
-        // update pivot table
-        // $tag_ids = [];
-        // foreach ($request->get('tags') as $tag) {
-        //     $existingtag = Tag::whereName($tag['text'])->first();
-        //     if ($existingtag) {
-        //         $tag_ids[] = $existingtag->id;
-        //     } else {
-        //         $newtag = Tag::create([
-        //             'name' => $tag['text']
-        //         ]);
-        //         $tag_ids[] = $newtag->id;
-        //     }
-        // }
-        // $product->tags()->sync($tag_ids);
 
         return $this->sendResponse($item, 'Item Information has been updated');
     }

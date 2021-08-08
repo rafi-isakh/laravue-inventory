@@ -244,6 +244,10 @@
                         return 'Barang Tersedia'
                     case 2:
                         return 'Stok Habis'
+                    case 3:
+                        return 'Kadaluarsa'
+                    default:
+                        return ''
                 }
             }
 

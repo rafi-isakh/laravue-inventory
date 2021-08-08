@@ -36,6 +36,7 @@ Route::namespace('App\\Http\\Controllers\\API\V1')->group(function () {
 
     Route::get('/transactions/{id}/details', 'TransactionController@detail');
     Route::get('/orders/{id}/details', 'OrderController@orderDetail');
+    Route::get('/transactions/today', 'TransactionController@current');
 
     Route::apiResources([
         'user' => 'UserController',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ItemService;
 use App\Models\DisplayItem;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
@@ -11,15 +12,18 @@ class DisplayItemController extends BaseController
 {
     protected $displayItem = '';
 
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(DisplayItem $displayItem)
+    public function __construct(DisplayItem $displayItem, ItemService $service)
     {
         $this->middleware('auth:api');
         $this->displayItem = $displayItem;
+        $this->service = $service;
     }
 
     /**
@@ -30,6 +34,11 @@ class DisplayItemController extends BaseController
     public function index()
     {
         $displayItems = $this->displayItem->latest()->paginate(10);
+
+        foreach ($displayItems as $item) {
+            $this->service->calculateRestock($item);
+            $this->service->checkExpiredDate($item);
+        }
 
         return $this->sendResponse($displayItems, 'DisplayItem list');
     }

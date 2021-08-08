@@ -108,14 +108,14 @@
                         <div class="form-group" v-show="editmode">
                             <label>Status</label>
                             <select class="form-control" v-model="form.status">
-                              <option value="1">Status 1</option>
-                              <option value="2">Status 2</option>
+                              <option value="1">Tersedia</option>
+                              <option value="2">Segera Melakukan Pengadaan</option>
                             </select>
                             <has-error :form="form" field="type"></has-error>
                         </div>
                         <div class="form-group">
                             <label>Tanggal Expire</label>
-                            <VueDatePicker v-model="form.expiredDate" name="expiredDate" placeholder="Pilih tanggal"></VueDatePicker>
+                            <VueDatePicker noHeader v-model="form.expiredDate" name="expiredDate" placeholder="Pilih tanggal"></VueDatePicker>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -259,6 +259,10 @@
                         return 'Tersedia'
                     case 2:
                         return 'Segera Melakukan Pengadaan'
+                    case 3:
+                        return 'Kadaluarsa'
+                    default:
+                        return ''
                 }
             }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use App\Models\Item;
+use App\Http\Services\TransactionService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,15 +14,18 @@ class TransactionController extends BaseController
 {
     protected $transaction = '';
 
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction $transaction, TransactionService $service)
     {
         $this->middleware('auth:api');
         $this->transaction = $transaction;
+        $this->service = $service;
     }
 
 
@@ -37,6 +41,13 @@ class TransactionController extends BaseController
         return $this->sendResponse($transactions, 'Transaction list');
     }
 
+    public function current() {
+        $today = Carbon::now('Asia/Jakarta');
+        $transactions = $this->transaction->whereDate('created_at', $today)->get();
+
+        return $this->sendResponse($transactions, "Today's transaction");
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -49,6 +60,7 @@ class TransactionController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->service->calculateStock($request->get('transactionItems'));
         $totalPrice = $this->calculatePrice($request->get('transactionItems'));
         
         $newTransaction = $this->transaction->create([

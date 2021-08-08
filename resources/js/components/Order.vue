@@ -270,7 +270,7 @@
               case 2:
                 return 'Sedang Diajukan'
               default:
-                return 'Sedang Diajukan'
+                return ''
             }
           }
 
