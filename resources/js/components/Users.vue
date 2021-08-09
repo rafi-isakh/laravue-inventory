@@ -5,7 +5,7 @@
 
           <div class="col-12">
         
-            <div class="card" v-if="$gate.isAdmin()">
+            <div class="card" v-if="!$gate.isAdmin()">
               <div class="card-header">
                 <h3 class="card-title">Data User</h3>
               </div>
@@ -50,7 +50,7 @@
         </div>
 
 
-        <div v-if="!$gate.isAdmin()">
+        <div v-if="$gate.isAdmin()">
             <not-found></not-found>
         </div>
 
@@ -76,26 +76,13 @@
                                 class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                             <has-error :form="form" field="name"></has-error>
                         </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input v-model="form.username" type="text" name="username"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('username') }">
-                            <has-error :form="form" field="username"></has-error>
-                        </div>
-                    
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input v-model="form.password" type="password" name="password"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" autocomplete="false">
-                            <has-error :form="form" field="password"></has-error>
-                        </div>
                     
                         <div class="form-group">
                             <label>User Role</label>
                             <select name="role" v-model="form.role" id="role" class="form-control" :class="{ 'is-invalid': form.errors.has('role') }">
                                 <option value="">Select User Role</option>
                                 <option value="1">Admin</option>
-                                <option value="2">Standard User</option>
+                                <option value="2">Owner</option>
                             </select>
                             <has-error :form="form" field="role"></has-error>
                         </div>
@@ -200,7 +187,7 @@
           loadUsers(){
             this.$Progress.start();
 
-            if(this.$gate.isAdmin()){
+            if(!this.$gate.isAdmin()){
               axios.get("api/user").then(({ data }) => (this.users = data.data));
             }
 

@@ -73,8 +73,8 @@ class RegisterController extends Controller
 
         // Assigning Role by default user role
 
-        // $role = Role::where('name', 'User')->first();
-        // $user->assignRole($role);
+        $role = Role::where('name', 'owner')->first();
+        $user->assignRole($role);
 
         return $user;
     }

@@ -55,7 +55,7 @@
       </li>
 
 
-      @can('isAdmin')
+      @can('isOwner')
         <li class="nav-item">
           <router-link to="/users" class="nav-link">
             <i class="fa fa-users nav-icon blue"></i>

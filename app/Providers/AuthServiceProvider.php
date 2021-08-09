@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role === 1;
         });
 
-        Gate::define('isUser', function ($user) {
+        Gate::define('isOwner', function ($user) {
             // if ($user->isUser()) {
             //     return true;
             // }

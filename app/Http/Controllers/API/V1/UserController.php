@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Users\UserRequest;
 use App\Models\User;
+use App\Models\Role;
+use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,7 +29,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        if (!Gate::allows('isAdmin')) {
+        if (!Gate::allows('isOwner')) {
             return $this->unauthorizedResponse();
         }
         // $this->authorize('isAdmin');
@@ -74,7 +76,15 @@ class UserController extends BaseController
             $request->merge(['password' => Hash::make($request['password'])]);
         }
 
-        $user->update($request->all());
+        if (!empty($request->role)) {
+            DB::table('role_user')->where('user_id',$id)->delete();
+            $user->assignRole(Role::find($request['role']));
+        }
+        
+        $user->update([
+            'name' => $request['name'],
+            'role' => $request['role']
+        ]);
 
         return $this->sendResponse($user, 'User Information has been updated');
     }
